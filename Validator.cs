@@ -17,7 +17,7 @@ namespace NumberValidator
 
         public string HandleOperatorValidator()
         {
-            string[] validOperators = { "+", "-", "*", "/", "sum", "subtraction", "multiplication", "division" };
+            string[] validOperators = ["+", "-", "*", "/", "sum", "subtraction", "multiplication", "division"];
 
             Console.WriteLine("Enter an operator (+, -, *, /, sum, subtraction, multiplication, division):");
 
