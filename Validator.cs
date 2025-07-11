@@ -1,8 +1,18 @@
+using System.Runtime.CompilerServices;
+using Menu;
+
 namespace NumberValidator
 {
     public class RunValidator
     {
-        public float HandleNumberValidator()
+        private readonly ShowMenu Menu = new ShowMenu();
+        private static readonly string[] ValidOperators = new string[]
+        {
+            "1", "2", "3", "4",
+            "sum", "subtraction", "multiplication", "division",
+            "+", "-", "*", "/"
+        };
+        public float IsValidNumber()
         {
             float numberValidated;
             Console.WriteLine("Enter a number:");
@@ -15,26 +25,30 @@ namespace NumberValidator
             return numberValidated;
         }
 
-        public string HandleOperatorValidator()
+        public string IsValidOperator()
         {
-            string[] validOperators = ["+", "-", "*", "/", "sum", "subtraction", "multiplication", "division"];
-
-            Console.WriteLine("Enter an operator (+, -, *, /, sum, subtraction, multiplication, division):");
+            Menu.Show();
 
             while (true)
             {
-                string operatorInput = Console.ReadLine() ?? "";
+                Console.Write("Select operator: ");
+                string input = Console.ReadLine()?.Trim().ToLower() ?? "";
 
-                foreach (var op in validOperators)
+                if (ValidOperators.Contains(input))
                 {
-                    if (op == operatorInput)
+                    return input switch
                     {
-                        return operatorInput;
-                    }
+                        "1" or "sum" or "+" => "+",
+                        "2" or "subtraction" or "-" => "-",
+                        "3" or "multiplication" or "*" => "*",
+                        "4" or "division" or "/" => "/",
+                        _ => input
+                    };
                 }
 
-                Console.WriteLine("Invalid operator. Please enter again:");
+                Console.WriteLine("Invalid operator. Try again.");
             }
         }
+
     }
 }

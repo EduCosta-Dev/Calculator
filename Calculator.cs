@@ -5,63 +5,68 @@ namespace _Calculator
 {
     public class Calculator
     {
-        private RunValidator validator = new RunValidator();
+        private readonly RunValidator Validator = new RunValidator();
 
         public void RunCalculator()
         {
             while (true)
             {
-                // Coleta dos dados em cada iteração
-                float firstNumber = validator.HandleNumberValidator();
-                float secondNumber = validator.HandleNumberValidator();
-                string operatorInput = validator.HandleOperatorValidator();
+                Console.Clear();
 
-                float result;
+                float firstNumber = Validator.IsValidNumber();
+                float secondNumber = Validator.IsValidNumber();
+
+                string operatorInput = Validator.IsValidOperator();
+
+                float result = 0;
+                bool validOperation = true;
 
                 switch (operatorInput)
                 {
                     case "+":
-                    case "sum":
                         result = firstNumber + secondNumber;
                         break;
 
                     case "-":
-                    case "subtraction":
                         result = firstNumber - secondNumber;
                         break;
 
                     case "*":
-                    case "multiplication":
                         result = firstNumber * secondNumber;
                         break;
 
                     case "/":
-                    case "division":
                         if (secondNumber == 0)
                         {
-                            Console.WriteLine("Error: Division by zero.");
-                            continue; // volta para o início do loop
+                            Console.WriteLine("Error: Division by zero. Please enter a new second number.");
+                            secondNumber = Validator.IsValidNumber();
+                            result = firstNumber / secondNumber;
                         }
-                        result = firstNumber / secondNumber;
+                        else
+                        {
+                            result = firstNumber / secondNumber;
+                        }
                         break;
 
                     default:
-                        Console.WriteLine("Invalid operation.");
-                        continue;
+                        Console.WriteLine("Unknown operator.");
+                        validOperation = false;
+                        break;
                 }
 
-                Console.WriteLine($"Result: {result}");
+                if (validOperation)
+                {
+                    Console.WriteLine($"\nResult: {firstNumber}{operatorInput}{secondNumber} = {result}");
+                }
 
                 Console.WriteLine("\nDo you want to perform another calculation? (Y/N)");
-                string response = Console.ReadLine() ?? "";
+                string response = Console.ReadLine()?.Trim().ToLower() ?? "";
 
-                if (response.ToLower() != "y")
+                if (response != "y")
                 {
                     Console.WriteLine("Exiting calculator...");
                     break;
                 }
-
-                Console.Clear();
             }
         }
     }
