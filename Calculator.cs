@@ -6,7 +6,6 @@ namespace _Calculator
     public class Calculator
     {
         private readonly RunValidator Validator = new RunValidator();
-
         public void RunCalculator()
         {
             while (true)

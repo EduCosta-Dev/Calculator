@@ -44,6 +44,9 @@ namespace NumberValidator
                         "4" or "division" or "/" => "/",
                         _ => input
                     };
+
+
+                    // A basic console application that performs arithmetic operations such as addition, subtraction, multiplication, and division. Includes user input validation for numbers and operators.
                 }
 
                 Console.WriteLine("Invalid operator. Try again.");
